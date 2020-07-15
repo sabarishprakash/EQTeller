@@ -3,7 +3,8 @@ const PROXY_CONFIG = [
         context: [
             "/GETCUSNAME",
             "/PMC",
-            "/GETCHGCNAM"
+            "/GETCHGCNAM",
+            "/GCUSTNDEAL"
         ],
         target: "http://172.16.8.115:10099/web/services/",
         secure: false,
