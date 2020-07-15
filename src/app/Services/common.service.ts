@@ -13,6 +13,10 @@ export class CommonService {
     return this.http.post<{FULLNAME: ' ',SHORTNAME: ' '}>('GETCUSNAME', {BASICNO});
   }
 
+  getCustomerNameFromDeal(BRANCH: string,REF: string) {
+    return this.http.post<{FULLNAME: ' ',SHORTNAME: ' '}>('GCUSTNDEAL', {BRANCH, REF});
+  }
+
   getChargeCodeName(CHARGECODE: string) {
     return this.http.post<{FULLNAME: ' '}>('GETCHGCNAM', {CHARGECODE});
   }
