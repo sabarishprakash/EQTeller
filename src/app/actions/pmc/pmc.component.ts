@@ -15,6 +15,8 @@ export class PmcComponent implements OnInit {
   fromAccount = false;
   fromDeal = false;
   isPosting = false;
+  errorGetCustomer: string;
+  errorGetChargeCode: string;
   fetchingCustomerName = false;
   fetchingChargeCodeName = false;
   result = { RETURNSTATUS: ' ', ERRORMESSAGE: ' ' };
@@ -75,24 +77,31 @@ export class PmcComponent implements OnInit {
   }
 
   getChargeCodeName() {
+    this.errorGetChargeCode = null;
     this.fetchingChargeCodeName = true;
     const CHARGECODE = this.pmcForm.value['chargeCode'].toUpperCase();
     this.common.getChargeCodeName(CHARGECODE).subscribe(
       responseData => {
         this.fetchingChargeCodeName = false;
         this.chargeCodeName = responseData.FULLNAME;
+      }, error => {
+        this.errorGetChargeCode = error.status;
       }
     );
   }
 
   getCustName() {
     this.fetchingCustomerName = true;
+    this.errorGetCustomer = null;
     if (this.fromAccount) {
       const BASICNO = this.pmcForm.value['account'].toUpperCase();
       this.common.getCustomerName(BASICNO).subscribe(
         responseData => {
           this.fetchingCustomerName = false;
           this.customerName = responseData.FULLNAME;
+        }, error => {
+          this.errorGetCustomer = error.status;
+          console.log(error.error);
         }
       ); 
     }
@@ -103,6 +112,10 @@ export class PmcComponent implements OnInit {
         responseData => {
           this.fetchingCustomerName = false;
           this.customerName = responseData.FULLNAME;
+        }, error => {
+          this.errorGetCustomer = error.status;
+          console.log(error.error);
+          console.log(error);
         }
       );
     }

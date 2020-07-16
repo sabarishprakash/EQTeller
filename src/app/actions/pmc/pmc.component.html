@@ -89,7 +89,7 @@
         </div>
     </div>
     <div class="col-lg-5" style="color:blueviolet">
-        <div class="row">
+        <div class="row" *ngIf="!errorGetCustomer"> 
             <div class="col-lg-6">
                 <h5><label for="customerName" *ngIf="customerName">Customer Name: </label></h5>
             </div>
@@ -99,8 +99,13 @@
                 <h5><output class="ml-2" id="customerName" *ngIf="customerName">{{ customerName }}</output></h5>
             </div>
         </div>
+        <div class="row" *ngIf="errorGetCustomer alert-dismissible fade show">
+            <div class="alert alert-danger">
+                <strong>{{ errorGetCustomer }} Unable to Get Customer Details!</strong> 
+              </div>
+        </div>
         <br />
-        <div class="row">
+        <div class="row" *ngIf="!errorGetChargeCode">
             <div class="col-lg-6">
                 <h5><label for="chargeCodeName" *ngIf="chargeCodeName">Charge Code: </label></h5>
             </div>
@@ -109,6 +114,11 @@
                     *ngIf="fetchingChargeCodeName"></div>
                 <h5 class="ml-2" id="chargeCodeName" *ngIf="chargeCodeName">{{ chargeCodeName }}</h5>
             </div>
+        </div>
+        <div class="row" *ngIf="errorGetChargeCode alert-dismissible fade show">
+            <div class="alert alert-danger">
+                <strong>{{ errorGetCustomer }} Unable to Get Chaqrge Code Details!</strong> 
+              </div>
         </div>
     </div>
 </div>
