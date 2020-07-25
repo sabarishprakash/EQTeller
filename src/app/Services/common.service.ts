@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { input, NAMEoutput, NAMEinput } from '../Models/io.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,15 +10,17 @@ export class CommonService {
   constructor(private http: HttpClient) { }
 
   getCustomerName(BASICNO: string) {
-    //return this.http.post<{FULLNAME: ' ',SHORTNAME: ' '}>('http://172.16.8.115:10099/web/services/GETCUSNAME/', {BASICNO});
-    return this.http.post<{FULLNAME: ' ',SHORTNAME: ' '}>('GETCUSNAME', {BASICNO});
+    const postData = new NAMEinput(new input('BASIC',BASICNO));
+    return this.http.post<NAMEoutput>('getname', postData);
   }
 
   getCustomerNameFromDeal(BRANCH: string,REF: string) {
-    return this.http.post<{FULLNAME: ' ',SHORTNAME: ' '}>('GCUSTNDEAL', {BRANCH, REF});
+    const postData = new NAMEinput(new input('DEAL_REFERENCE', REF));
+    return this.http.post<NAMEoutput>('getname', postData);
   }
 
   getChargeCodeName(CHARGECODE: string) {
-    return this.http.post<{FULLNAME: ' '}>('GETCHGCNAM', {CHARGECODE});
+    const postData = new NAMEinput(new input('CHARGE_CODE', CHARGECODE));
+    return this.http.post<NAMEoutput>('getname', postData);
   }
 }

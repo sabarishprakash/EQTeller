@@ -16,6 +16,7 @@ export class ActionsService {
     new actions(3,'YCT','Debit Card Tracking'),
     new actions(4,'ANC','Add New Customer'),
     new actions(5,'OCA','Open Customer Account'),
+    new actions(6,'AB ','View Account Balance')
   ];
 
   getActions() {

@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CommonService } from 'src/app/Services/common.service';
+import { AsiService } from 'src/app/Services/asi.service';
+import { asi } from 'src/app/Models/asi.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-asi',
@@ -7,9 +12,100 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AsiComponent implements OnInit {
 
-  constructor() { }
+  asiForm: FormGroup;
+  isPosting = false;
+  errorGetCustomer: string;
+  errorGetTranCode: string;
+  fetchingCustomerName = false;
+  fetchingTranName = false;
+  customerName: string;
+  transactionCodeName: string;
+  postData: asi;
+  errorProcessing: string;
+  success = false;
 
-  ngOnInit(): void {
+  constructor(private common: CommonService,
+    private process: AsiService,
+    private location: Location) { }
+
+  private initForm() {
+    this.asiForm = new FormGroup({
+      'branch': new FormControl(null, Validators.required),
+      'account': new FormControl(null, Validators.required),
+      'suffix': new FormControl(null, Validators.required),
+      'tranCode': new FormControl(null, Validators.required),
+      'currency': new FormControl('AOA', Validators.required),
+      'amount': new FormControl(null, Validators.required),
+      'comments': new FormControl(null)
+    })
   }
 
+  ngOnInit(): void {
+    this.initForm();
+  }
+
+  getCustName() {
+    this.fetchingCustomerName = true;
+    this.errorGetCustomer = null;
+      const BASICNO = this.asiForm.value['account'].toUpperCase();
+      this.common.getCustomerName(BASICNO).subscribe(
+        responseData => {
+          this.fetchingCustomerName = false;
+          this.customerName = responseData.FULLNAME;
+        }, error => {
+          this.fetchingCustomerName = false;
+          this.errorGetCustomer = error.status;
+          console.log(error.error);
+        }
+      ); 
+    
+  }
+
+  onCancel() {
+    this.asiForm.reset();
+  }
+
+   onSubmit() {
+     this.isPosting = true;
+     this.postData = new asi(
+      this.asiForm.value['branch'],
+      this.asiForm.value['account'].toUpperCase(),
+      this.asiForm.value['suffix'],
+      this.asiForm.value['tranCode'].toString(),
+      this.asiForm.value['currency'],
+      this.asiForm.value['amount'].toString(),
+      this.asiForm.value['comments']
+     )
+     console.log(this.postData);
+    this.process.processASI(this.postData).subscribe(
+      responseData => {
+        this.isPosting = false;
+        console.log(responseData.RETURNSTATUS + ' ' + responseData.ERRORMESSAGE);
+        if(responseData.RETURNSTATUS === 'F') {
+          this.errorProcessing = responseData.ERRORMESSAGE;
+        } else {
+          this.success = true;
+        }
+      }, error => {
+        this.isPosting = false;
+        this.errorProcessing = error.status; 
+      })
+
+   }
+
+   getTransactionCodeName() {
+     
+   }
+
+   dismissProcessError() {
+    this.errorProcessing = null;
+  }
+
+  dismissTransactionCodeError() {
+    this.errorGetTranCode = null;
+  }
+
+  dismissCustomerError() {
+    this.errorGetCustomer = null;
+  }
 }

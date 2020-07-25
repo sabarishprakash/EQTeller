@@ -1,12 +1,12 @@
 const PROXY_CONFIG = [
     {
         context: [
-            "/GETCUSNAME",
-            "/PMC",
-            "/GETCHGCNAM",
-            "/GCUSTNDEAL"
+            "/pmc",
+            "/getname",
+            "/asi",
+            "/ab"
         ],
-        target: "http://172.16.8.115:10099/web/services/",
+        target: "http://172.16.8.115:10099/web/services/equation/",
         secure: false,
         logLevel: "debug",
         changeOrigin: true

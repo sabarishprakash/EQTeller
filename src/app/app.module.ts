@@ -16,6 +16,7 @@ import { OcaComponent } from './actions/oca/oca.component';
 import { YctComponent } from './actions/yct/yct.component';
 import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './footer/footer.component';
+import { AbComponent } from './actions/ab/ab.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { FooterComponent } from './footer/footer.component';
     YctComponent,
     LoginComponent,
     FooterComponent,
+    AbComponent,
   ],
   imports: [
     BrowserModule,

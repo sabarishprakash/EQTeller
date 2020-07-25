@@ -7,6 +7,7 @@ import { AsiComponent } from './actions/asi/asi.component';
 import { YctComponent } from './actions/yct/yct.component';
 import { AncComponent } from './actions/anc/anc.component';
 import { OcaComponent } from './actions/oca/oca.component';
+import { AbComponent } from './actions/ab/ab.component';
 import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
@@ -17,7 +18,8 @@ const appRoutes: Routes = [
         {path: '2', component: AsiComponent},
         {path: '3', component: YctComponent},
         {path: '4', component: AncComponent},
-        {path: '5', component: OcaComponent}
+        {path: '5', component: OcaComponent},
+        {path: '6', component: AbComponent}
     ]},
     {path: 'login', component: LoginComponent}
 ];

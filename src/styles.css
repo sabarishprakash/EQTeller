@@ -13,3 +13,18 @@
 .fit-width {
     width: auto;
 }
+
+.fullscreen{
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.wrapper{ 
+  overflow-y: auto;
+  overflow-x: hidden; 
+  position:relative;
+  min-height: calc(100vh - 185px);
+  max-height: calc(100vh - 185px);
+  width: 100%;
+  border-color: transparent;
+}

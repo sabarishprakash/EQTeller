@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { pmc } from '../../Models/pmc.model';
 import { PmcService } from '../../Services/pmc.service';
 import { CommonService } from 'src/app/Services/common.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-pmc',
@@ -17,15 +18,16 @@ export class PmcComponent implements OnInit {
   isPosting = false;
   errorGetCustomer: string;
   errorGetChargeCode: string;
+  errorProcessing: string;
   fetchingCustomerName = false;
   fetchingChargeCodeName = false;
-  result = { RETURNSTATUS: ' ', ERRORMESSAGE: ' ' };
   customerName: string;
   chargeCodeName: string;
-  postData: pmc = new pmc('0001', 'X00378', '011', 'A8', '1000');
+  postData: pmc;
 
   constructor(private common: CommonService,
-    private process: PmcService) { }
+    private process: PmcService,
+    private location: Location) { }
 
 
   private initForm() {
@@ -70,10 +72,6 @@ export class PmcComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-  }
-
-  submitForm() {
-
   }
 
   getChargeCodeName() {
@@ -124,24 +122,46 @@ export class PmcComponent implements OnInit {
 
   onSubmit() {
     this.isPosting = true;
-    this.postData.BRANCH = this.pmcForm.value['branch'];
-    this.postData.ACCOUNT = this.pmcForm.value['account'].toUpperCase();
-    this.postData.SUFFIX = this.pmcForm.value['suffix'];
-    this.postData.CHARGE_CODE = this.pmcForm.value['chargeCode'];
-    this.postData.CHARGE_AMOUNT = this.pmcForm.value['chargeAmount'];
+    this.postData = new pmc(
+      this.pmcForm.value['branch'],
+      this.pmcForm.value['account'].toUpperCase(),
+      this.pmcForm.value['suffix'],
+      this.pmcForm.value['chargeCode'],
+      this.pmcForm.value['chargeAmount']
+    );
     console.log(this.postData);
     this.process.processPMC(this.postData).subscribe(
       responseData => {
         this.isPosting = false;
         console.log(responseData.RETURNSTATUS + ' ' + responseData.ERRORMESSAGE);
-        Object.assign(this.result, responseData);
-        this.onCancel();
-      })
-
+        if (responseData.RETURNSTATUS === 'F') {
+          this.errorProcessing = responseData.ERRORMESSAGE;
+        } else {
+          this.onCancel();
+          //Navigate to previous page
+          this.location.back();
+        }
+      }, error => {
+        this.isPosting = false;
+        this.errorProcessing = error.status;
+      }
+    );
   }
 
   onCancel() {
     this.pmcForm.reset();
+  }
+
+  dismissCustomerError() {
+    this.errorGetCustomer = null;
+  }
+
+  dismissChargeCodeError() {
+    this.errorGetChargeCode = null;
+  }
+
+  dismissProcessError() {
+    this.errorProcessing = null;
   }
 
 }

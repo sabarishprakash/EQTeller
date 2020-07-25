@@ -1,1 +1,209 @@
-<p>ASI works!</p>
+<div class="container">
+    <div class="card border border-dark m-2">
+        <h2 class="card-header bg-dark text-center" style="color: white;"><i>Add Sundry Item</i></h2>
+        <div class="card-body" *ngIf="!success">
+            <div class="col-lg-12">
+                <div class="container">
+                    <form [formGroup]="asiForm" (ngSubmit)="onSubmit()">
+                        <div class="form-row align-items-center mb-4">
+                            <div class="col-2">
+                                <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">Branch</div>
+                                    </div>
+                                    <input type="text" maxlength="4" class="form-control" id="branch"
+                                        formControlName="branch" style="border-color: #00338E;">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">Basic</div>
+                                    </div>
+                                    <input type="text" class="form-control text-uppercase" id="account" maxlength="6"
+                                        (blur)="getCustName()" formControlName="account" style="border-color: #00338E;">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">Suffix</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="suffix" maxlength="3"
+                                        formControlName="suffix" style="border-color: #00338E;">
+                                </div>
+                            </div>
+                            <div class="col-5" *ngIf="!errorGetCustomer">
+                                <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;"
+                                    *ngIf="fetchingCustomerName">
+                                </div>
+                                <h5><output class="ml-2" id="customerName"
+                                        *ngIf="customerName">{{ customerName }}</output></h5>
+                            </div>
+                            <div class="col-5" *ngIf="errorGetCustomer">
+                                <div class="row alert alert-danger ml-2">
+                                    <div class="col-lg-10"><strong>{{ errorGetCustomer }} Unable to Get Customer
+                                            Details!</strong></div>
+                                    <div class="col-lg-2"><button type="button" class="btn btn-danger"
+                                            (click)="dismissCustomerError()">X</button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row align-items-center mb-4">
+                            <div class="col-3">
+                                <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">Transaction
+                                            Code</div>
+                                    </div>
+                                    <input type="number" maxlength="3" class="form-control" id="tranCode"
+                                        formControlName="tranCode" style="border-color: #00338E;"
+                                        (blur)="getTransactionCodeName()">
+                                </div>
+                            </div>
+                            <div class="col-5" *ngIf="!errorGetTranCode">
+                                <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;"
+                                    *ngIf="fetchingTranName">
+                                </div>
+                                <h5 class="ml-2" id="chargeCodeName" *ngIf="transactionCodeName">
+                                    {{ transactionCodeName }}</h5>
+                            </div>
+                            <div class="col-5" *ngIf="errorGetTranCode">
+                                <div class="row alert alert-danger">
+                                    <div class="col-lg-10"><strong>{{ errorGetTranCode }} Unable to Get Transaction
+                                            Code Details!</strong>
+                                    </div>
+                                    <div class="col-lg-2"><button type="button" class="btn btn-danger"
+                                            (click)="dismissTransactionCodeError()">X</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row align-items-center mb-4">
+                            <div class="col-3">
+                                <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">Currency Code
+                                        </div>
+                                    </div>
+                                    <input type="text" ng-maxlength="3" maxlength="3" class="form-control" id="branch"
+                                        style="border-color: #00338E;" formControlName="currency">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">Amount</div>
+                                    </div>
+                                    <input type="number" maxlength="15" class="form-control" id="amount"
+                                        style="border-color: #00338E;" formControlName="amount">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row align-items-center mb-4">
+                            <div class="col-7">
+                                <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">Narratives
+                                        </div>
+                                    </div>
+                                    <textarea class="form-control" id="comments" rows="3" formControlName="comments"
+                                        style="border-color: #00338E;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row alert-dismissible fade show" *ngIf="errorProcessing">
+                            <div class="row alert alert-danger">
+                                <div class="col-lg-10"><strong>{{ errorProcessing }} Unable to Process!</strong>
+                                </div>
+                                <div class="col-lg-2"><button type="button" class="btn btn-danger"
+                                        (click)="dismissProcessError()">X</button></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-8">
+                                <button class="btn btn-outline-primary mr-2" href="#" *ngIf="!isPosting"
+                                    (click)="onSubmit()" [disabled]="!asiForm.valid">Process</button>
+                                <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;"
+                                    *ngIf="isPosting">
+                                </div>
+                                <button class="btn btn-outline-primary" href="#" *ngIf="!isPosting">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card-body" *ngIf="success">
+            <h2 class="text-center text-success display-4">Success!</h2>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <h5 class="text-secondary">Account:</h5>
+                        </th>
+                        <td><h5>{{asiForm.value['branch']}}-{{asiForm.value['account'].toUpperCase()}}-{{asiForm.value['suffix']}}</h5> </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <h5 class="text-secondary">Customer Name:</h5>
+                        </th>
+                        <td>
+                            <h5>{{customerName}}</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <h5 class="text-secondary">Transaction Code:</h5>
+                        </th>
+                        <td>
+                            <h5> {{asiForm.value['tranCode'].toString()}}</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <h5 class="text-secondary">Transaction Code Name:</h5>
+                        </th>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <h5 class="text-secondary">Currency:</h5>
+                        </th>
+                        <td>
+                            <h5>{{asiForm.value['currency']}}</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <h5 class="text-secondary">Amount: </h5>
+                        </th>
+                        <td>
+                            <h5>{{asiForm.value['amount'].toString()}}</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <h5 class="text-secondary">Narratives:</h5>
+                        </th>
+                        <td>
+                            <h5>{{asiForm.value['comments']}}</h5>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+           <div class="text-center">
+            <div class="btn btn-success" [routerLink]="['/actions']">OK</div>
+           </div>
+        </div>
+    </div>
+</div>
