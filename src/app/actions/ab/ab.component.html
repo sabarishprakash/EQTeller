@@ -34,9 +34,9 @@
         </div>
         <div class="col-4">
           <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;" *ngIf="isPosting"></div>
-          <button type="submit" class="btn btn-primary ml-2 mb-2" *ngIf="!isPosting" [disabled]="!abForm.valid"> Get
+          <button type="submit" class="btn btn-outline-success ml-2 mb-2" *ngIf="!isPosting" [disabled]="!abForm.valid"> Get
             Details</button>
-          <button type="button" class="btn btn-danger ml-2 mb-2" *ngIf="!isPosting" [routerLink]="['/actions']">
+          <button type="button" class="btn btn-outline-danger ml-2 mb-2" *ngIf="!isPosting" [routerLink]="['/actions']">
             Exit</button>
         </div>
       </div>
