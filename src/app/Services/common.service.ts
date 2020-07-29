@@ -23,4 +23,9 @@ export class CommonService {
     const postData = new NAMEinput(new input('CHARGE_CODE', CHARGECODE));
     return this.http.post<NAMEoutput>('getname', postData);
   }
+
+  getTransactionCodeName(TRANSACTION_CODE: string) {
+    const postData = new NAMEinput(new input('TRANSACTION_CODE', TRANSACTION_CODE));
+    return this.http.post<NAMEoutput>('getname', postData);
+  }
 }

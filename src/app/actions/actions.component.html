@@ -4,7 +4,21 @@
         <app-menu></app-menu>
     </div>
     <div class="col-lg-9">
-        <router-outlet></router-outlet>
+        <div class="container" *ngIf="!inHome()">
+            <div class="card m-2 borderColour">
+                <!-- <h2 class="card-header text-center borderColour" style="background-color:#00338E;color: white;"><i>{{getHeading()}}</i></h2>  -->
+                <div class="card-header borderColour" style="background-color:#00338E;">
+                    <div class="row">
+                        <div class="col-lg-11"><h2 class="text-center" style="color: white;"><i>{{getHeading()}}</i></h2>  </div>
+                        <div class="col-lg-1"><button class="btn btn-outline-danger mt-1" style="border-color: white;color: white;" [routerLink]="['/actions']"><b>X</b></button></div>
+                    </div>
+                </div>
+                <router-outlet></router-outlet>
+            </div>
+        </div> 
+        <div class="contailer" *ngIf="inHome()">
+            <app-home></app-home>
+        </div>  
     </div>
 </div>
 <!-- <app-footer></app-footer> -->

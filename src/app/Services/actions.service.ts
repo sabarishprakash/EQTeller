@@ -27,4 +27,9 @@ export class ActionsService {
       //this.actionListChange.next(this.actionList.filter(e => e.mnemonic === searchinput));
       this.actionListChange.next(this.actionList.filter(e => e.description.includes(searchinput)));
   }
+
+  getHeading(key: number): string{
+    const action =  this.actionList.find(e => e.key === key);
+    return action.description;
+  }
 }

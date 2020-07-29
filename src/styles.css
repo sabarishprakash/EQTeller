@@ -28,3 +28,37 @@
   width: 100%;
   border-color: transparent;
 }
+
+.animatesuccess {
+  animation: colorchange 5s linear 1s infinite; /* animation-name followed by duration in seconds*/
+     /* you could also use milliseconds (ms) or something like 2.5s */
+  -webkit-animation: colorchange 5s linear 0s infinite alternate; /* Chrome and Safari */
+}
+
+@keyframes colorchange
+{
+  0%   {color: cyan;}
+  33%  {color: magenta;}
+  66%  {color: yellow;}
+  100% {color: cyan;}
+}
+
+@-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+{
+  0%   {color: cyan;}
+  33%  {color: magenta;}
+  66%  {color: yellow;}
+  100% {color: cyan;}
+}
+
+.borderColour {
+  animation: animate_border 5s infinite;
+}
+ 
+@keyframes animate_border {
+  0%   {border-color: red;}
+  25%  {border-color: green;}
+  50%  {border-color: blue;}
+  75%  {border-color: rgb(141, 141, 0);}
+  100% {border-color: red;}
+}

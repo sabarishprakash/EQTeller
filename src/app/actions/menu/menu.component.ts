@@ -20,7 +20,7 @@ export class MenuComponent implements OnInit {
       }
     ) 
   }
-
+  
   onSearch(event: Event) {
     this.actionService.performSearch((<HTMLInputElement>event.target).value);
   }

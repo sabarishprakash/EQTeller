@@ -58,11 +58,12 @@ export class AsiComponent implements OnInit {
           console.log(error.error);
         }
       ); 
-    
   }
 
   onCancel() {
-    this.asiForm.reset();
+    this.isPosting = true;
+    this.asiForm.reset(); 
+    this.isPosting = false;
   }
 
    onSubmit() {
@@ -94,7 +95,19 @@ export class AsiComponent implements OnInit {
    }
 
    getTransactionCodeName() {
-     
+    this.fetchingTranName = true;
+    this.errorGetTranCode = null;
+      const TRANSACTION_CODE = this.asiForm.value['tranCode'];
+      this.common.getTransactionCodeName(TRANSACTION_CODE).subscribe(
+        responseData => {
+          this.fetchingTranName = false;
+          this.transactionCodeName = responseData.FULLNAME;
+        }, error => {
+          this.fetchingTranName = false;
+          this.errorGetCustomer = error.status;
+          console.log(error.error);
+        }
+      ); 
    }
 
    dismissProcessError() {

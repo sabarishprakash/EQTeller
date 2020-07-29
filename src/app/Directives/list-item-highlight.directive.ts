@@ -8,7 +8,8 @@ export class ListItemHighlightDirective implements OnInit {
   constructor(private eleRef: ElementRef, private renderer: Renderer2) { }
   
   ngOnInit() {
-    this.renderer.setStyle(this.eleRef.nativeElement, 'border-color', 'teal');
+    //this.renderer.setStyle(this.eleRef.nativeElement, 'border-color', 'teal');
+    this.renderer.addClass(this.eleRef.nativeElement, 'borderColour');
     this.renderer.setStyle(this.eleRef.nativeElement, 'color', '#00338E');
   }
 

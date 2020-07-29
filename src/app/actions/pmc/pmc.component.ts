@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 export class PmcComponent implements OnInit {
   pmcForm: FormGroup;
   source: string[] = ['Account', 'Deal'];
+  success = false;
   fromAccount = false;
   fromDeal = false;
   isPosting = false;
@@ -36,8 +37,8 @@ export class PmcComponent implements OnInit {
       'account': new FormControl(null),
       'suffix': new FormControl(null),
       'chargeCode': new FormControl(null, Validators.required),
-      'chargeAmount': new FormControl(0.00, Validators.required),
-      'currency': new FormControl('AOA', Validators.required),
+      'chargeAmount': new FormControl(null, Validators.required),
+      'currency': new FormControl(null, Validators.required),
       'source': new FormControl(null, Validators.required),
       'dealRef': new FormControl(null)
     })
@@ -133,13 +134,11 @@ export class PmcComponent implements OnInit {
     this.process.processPMC(this.postData).subscribe(
       responseData => {
         this.isPosting = false;
-        console.log(responseData.RETURNSTATUS + ' ' + responseData.ERRORMESSAGE);
+        //console.log(responseData.RETURNSTATUS + ' ' + responseData.ERRORMESSAGE);
         if (responseData.RETURNSTATUS === 'F') {
           this.errorProcessing = responseData.ERRORMESSAGE;
         } else {
-          this.onCancel();
-          //Navigate to previous page
-          this.location.back();
+          this.success = true;
         }
       }, error => {
         this.isPosting = false;
@@ -150,14 +149,21 @@ export class PmcComponent implements OnInit {
 
   onCancel() {
     this.pmcForm.reset();
+    this.isPosting = false;
+    this.fromAccount = false;
+    this.fromDeal = false;
+    this.customerName = null;
+    this.chargeCodeName = null;
   }
 
   dismissCustomerError() {
     this.errorGetCustomer = null;
+    this.fetchingCustomerName = false;
   }
 
   dismissChargeCodeError() {
     this.errorGetChargeCode = null;
+    this.fetchingChargeCodeName = false;
   }
 
   dismissProcessError() {
