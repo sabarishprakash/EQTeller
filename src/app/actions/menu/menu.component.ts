@@ -9,7 +9,6 @@ import { ActionsService } from '../../Services/actions.service';
 })
 export class MenuComponent implements OnInit {
   constructor(private actionService: ActionsService) { }
-
   actionList: actions[];
 
   ngOnInit() {

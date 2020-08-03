@@ -1,243 +1,131 @@
 <div class="card-body" *ngIf="!success">
     <div class="container">
+        <div *ngIf="isPosting">
+            <mat-progress-bar color='warn' mode="indeterminate"></mat-progress-bar>
+            <br/>
+        </div>
         <form [formGroup]="pmcForm" (ngSubmit)="onSubmit()">
-            <div class="form-row align-items-center mb-4">
-                <div class="col-4">
-                    <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">
-                                Input Source</div>
-                        </div>
-                        <select class="form-control" formControlName="source" (change)="changeSource()"
-                            aria-describedby="Source" placeholder="Source" style="border-color: #00338E;">
-                            <option>Choose Source</option>
-                            <option *ngFor="let s of source">{{ s }}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="form-row align-items-center mb-4" *ngIf="fromAccount">
-                <div class="col-2">
-                    <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">
-                                Branch</div>
-                        </div>
-                        <input type="text" maxlength="4" class="form-control" id="branch" formControlName="branch"
-                            style="border-color: #00338E;">
-                    </div>
-                </div>
-                <div class="col-3">
-                    <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">
-                                Basic</div>
-                        </div>
-                        <input type="text" class="form-control text-uppercase" id="account" maxlength="6"
-                            (blur)="getCustName()" formControlName="account" style="border-color: #00338E;">
-                    </div>
-                </div>
-                <div class="col-2">
-                    <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">
-                                Suffix</div>
-                        </div>
-                        <input type="text" class="form-control" id="suffix" maxlength="3" formControlName="suffix"
-                            style="border-color: #00338E;">
-                    </div>
-                </div>
-                <div class="col-5" *ngIf="!errorGetCustomer">
-                    <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;"
-                        *ngIf="fetchingCustomerName">
-                    </div>
-                    <h5><output class="ml-2" id="customerName" *ngIf="customerName">{{ customerName }}</output></h5>
-                </div>
-                <div class="col-5" *ngIf="errorGetCustomer">
-                    <div class="row alert alert-danger ml-2">
-                        <div class="col-lg-10"><strong>{{ errorGetCustomer }} Unable to Get Customer
-                                Details!</strong></div>
-                        <div class="col-lg-2"><button type="button" class="btn btn-danger"
-                                (click)="dismissCustomerError()">X</button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-row align-items-center mb-4" *ngIf="fromDeal">
-                <div class="col-3">
-                    <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">
-                                Branch</div>
-                        </div>
-                        <input type="text" maxlength="4" class="form-control" id="branch" formControlName="branch"
-                            style="border-color: #00338E;">
-                    </div>
-                </div>
-                <div class="col-4">
-                    <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">
-                                Reference</div>
-                        </div>
-                        <input type="text" class="form-control text-uppercase" id="account" maxlength="6"
-                            (blur)="getCustName()" formControlName="dealRef" style="border-color: #00338E;">
-                    </div>
-                </div>
-                <div class="col-5" *ngIf="!errorGetCustomer">
-                    <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;"
-                        *ngIf="fetchingCustomerName">
-                    </div>
-                    <h5><output class="ml-2" id="customerName" *ngIf="customerName">{{ customerName }}</output></h5>
-                </div>
-                <div class="col-5" *ngIf="errorGetCustomer">
-                    <div class="row alert alert-danger ml-2">
-                        <div class="col-lg-10"><strong>{{ errorGetCustomer }} Unable to Get Customer
-                                Details!</strong></div>
-                        <div class="col-lg-2"><button type="button" class="btn btn-danger"
-                                (click)="dismissCustomerError()">X</button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-row align-items-center mb-4" *ngIf="fromAccount || fromDeal">
-                <div class="col-3">
-                    <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">
-                                Charge Code</div>
-                        </div>
-                        <input type="text" maxlength="2" class="form-control" id="branch" formControlName="chargeCode" (blur)="getChargeCodeName()"
-                            style="border-color: #00338E;">
-                    </div>
-                </div>
-                <div class="col-5" *ngIf="!errorGetChargeCode">
-                    <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;"
-                        *ngIf="fetchingChargeCodeName">
-                    </div>
-                    <h5><output class="ml-2" id="customerName" *ngIf="customerName">{{ chargeCodeName }}</output></h5>
-                </div>
-                <div class="col-5" *ngIf="errorGetChargeCode">
-                    <div class="row alert alert-danger ml-2">
-                        <div class="col-lg-10"><strong>Unable to Get Charge Code 
-                                Details!</strong></div>
-                        <div class="col-lg-2"><button type="button" class="btn btn-danger"
-                                (click)="dismissChargeCodeError()">X</button></div>
-                    </div>
-                </div>
-            </div>   
-            <div class="form-row align-items-center mb-4" *ngIf="fromAccount || fromDeal">
-                <div class="col-2">
-                    <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">
-                                Currency</div>
-                        </div>
-                        <input type="text" maxlength="3" class="form-control" id="branch" formControlName="currency"
-                            style="border-color: #00338E;">
-                    </div>
-                </div>
-                <div class="col-4">
-                    <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">
-                                Amount</div>
-                        </div>
-                        <input type="number" length="15" class="form-control" id="branch" formControlName="chargeAmount"
-                            style="border-color: #00338E;">
-                    </div>
-                </div>
-            </div> 
-            <div class="row alert-dismissible fade show" *ngIf="errorProcessing">
-                <div class="row alert alert-danger">
-                    <div class="col-lg-10"><strong>{{ errorProcessing }} Unable to Process!</strong>
-                    </div>
-                    <div class="col-lg-2"><button type="button" class="btn btn-danger"
-                            (click)="dismissProcessError()">X</button></div>
-                </div>
-            </div>  
-            <div class="form-group row" *ngIf="fromAccount || fromDeal">
-                <div class="col-lg-8">
-                    <button class="btn btn-outline-success mr-2" href="#" *ngIf="!isPosting" (click)="onSubmit()"
-                        [disabled]="!pmcForm.valid">Process</button>
-                    <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;" *ngIf="isPosting">
-                    </div>
-                    <button class="btn btn-outline-warning mr-2" href="#" *ngIf="!isPosting" (click)="onCancel()">Clear</button>
-                    <button class="btn btn-outline-danger" href="#"  *ngIf="!isPosting" [routerLink]="['/actions']">Exit</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<div class="card-body" *ngIf="success">
-    <h2 class="text-center text-success display-4">Success!</h2>
-    <table class="table">
-        <tbody>
+            <mat-form-field appearance="fill">
+                <mat-label>Choose Source</mat-label>
+                <mat-select formControlName="source" (selectionChange)="changeSource()">
+                    <mat-option *ngFor="let s of source" [value]="s">{{s}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+          <table>
             <tr *ngIf="fromAccount">
-                <th scope="row">
-                    <h5 class="text-secondary">Account:</h5>
-                </th>
                 <td>
-                    <h5>{{pmcForm.value['branch']}}-{{pmcForm.value['account'].toUpperCase()}}-{{pmcForm.value['suffix']}}
-                    </h5>
+                    <mat-form-field style="width:60px !important;">
+                        <mat-label>Branch</mat-label>
+                        <input matInput type="text" formControlName="branch">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field style="width:80px !important;">
+                        <mat-label>Account</mat-label>
+                        <input matInput type="text" formControlName="account" (blur)="getCustName()"
+                            (input)="this.pmcForm.patchValue({account: this.pmcForm.value['account'].toUpperCase()})">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field style="width:40px !important;">
+                        <mat-label>Suffix</mat-label>
+                        <input matInput type="text" formControlName="suffix">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;" *ngIf="fetchingCustomerName"></div>
+                    <h5><output class="ml-2" id="customerName" *ngIf="customerName">{{ customerName }}</output></h5>
                 </td>
             </tr>
             <tr *ngIf="fromDeal">
-                <th scope="row">
-                    <h5 class="text-secondary">Deal:</h5>
-                </th>
                 <td>
-                    <h5>{{pmcForm.value['branch'].toUpperCase()}}-{{pmcForm.value['dealRef']}}
-                    </h5>
+                    <mat-form-field style="width:60px !important;">
+                        <mat-label>Branch</mat-label>
+                        <input matInput type="text" formControlName="branch">
+                    </mat-form-field>
                 </td>
+                <td>
+                    <mat-form-field style="width:90px !important;">
+                        <mat-label>Reference</mat-label>
+                        <input matInput type="text" (blur)="getCustName()" formControlName="dealRef">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;" *ngIf="fetchingCustomerName"></div>
+                    <h5><output class="ml-2" id="customerName" *ngIf="customerName">{{ customerName }}</output></h5>
+                </td>               
+            </tr>
+        </table>    
+
+        <table>
+            <tr *ngIf="fromAccount || fromDeal">
+                <td>
+                    <mat-form-field style="width:60px !important;">
+                        <mat-label>Charge Code</mat-label>
+                        <input matInput type="text" (blur)="getChargeCodeName()" formControlName="chargeCode">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;" *ngIf="fetchingChargeCodeName"></div>
+                    <h5><output class="ml-2" id="customerName" *ngIf="chargeCodeName">{{ chargeCodeName }}</output></h5>  
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <tr *ngIf="fromAccount || fromDeal">
+                <td>
+                    <mat-form-field style="width:60px !important;">
+                        <mat-label>Currency</mat-label>
+                        <input matInput type="text" (blur)="getChargeCodeName()" formControlName="currency">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field style="width:80px !important;">
+                        <mat-label>Amount</mat-label>
+                        <input matInput type="text" (blur)="getChargeCodeName()" formControlName="chargeAmount">
+                    </mat-form-field> 
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <button *ngIf="fromAccount || fromDeal" class="mr-2" type="submit" mat-raised-button color="primary" [disabled]="!pmcForm.valid">Process</button>
+        <button *ngIf="fromAccount || fromDeal" type="button" mat-raised-button color="warn" (click)="onCancel()">Clear</button>           
+                  
+        </form>
+
+    </div>
+</div>
+
+<div class="card-body" *ngIf="success">
+    <h2 class="text-center animatesuccess display-4">Success!</h2>
+    <table class="table">
+        <tbody>
+            <tr *ngIf="fromAccount">
+                <td class="lead text-secondary font-italic">Customer</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{customerName}}</i></b></td>
+                <td class="lead text-secondary font-italic">Account</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{pmcForm.value['branch']}}-{{pmcForm.value['account'].toUpperCase()}}-{{pmcForm.value['suffix']}}</i></b></td>               
+            </tr>
+            <tr *ngIf="fromDeal">
+                <td class="lead text-secondary font-italic">Customer</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{customerName}}</i></b></td>
+                <td class="lead text-secondary font-italic">Deal Reference</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{pmcForm.value['branch']}}-{{pmcForm.value['dealRef'].toUpperCase()}}</i></b></td>               
+            </tr>  
+            <tr>
+                <td class="lead text-secondary font-italic">Charge Code</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{pmcForm.value['chargeCode'].toString()}}</i></b></td>
+                <td class="lead text-secondary font-italic">Charge Code Name</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{chargeCodeName}}</i></b></td>
             </tr>
             <tr>
-                <th>
-                    <h5 class="text-secondary">Customer Name:</h5>
-                </th>
-                <td>
-                    <h5>{{customerName}}</h5>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <h5 class="text-secondary">Charge Code:</h5>
-                </th>
-                <td>
-                    <h5> {{pmcForm.value['chargeCode'].toString()}}</h5>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <h5 class="text-secondary">Charge Code Name:</h5>
-                </th>
-                <td>
-                    <h5>{{chargeCodeName}}</h5>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <h5 class="text-secondary">Currency:</h5>
-                </th>
-                <td>
-                    <h5>{{pmcForm.value['currency']}}</h5>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <h5 class="text-secondary">Amount: </h5>
-                </th>
-                <td>
-                    <h5>{{pmcForm.value['chargeAmount'].toString()}}</h5>
-                </td>
-            </tr>
+                <td class="lead text-secondary font-italic">Currency</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{pmcForm.value['currency']}}</i></b></td>
+                <td class="lead text-secondary font-italic">Amount</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{pmcForm.value['chargeAmount'].toString()}}</i></b></td>
+            </tr>                    
         </tbody>
     </table>
     <div class="text-center">

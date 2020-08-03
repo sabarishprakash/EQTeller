@@ -3,7 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/Services/common.service';
 import { AsiService } from 'src/app/Services/asi.service';
 import { asi } from 'src/app/Models/asi.model';
-import { Location } from '@angular/common';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatDialog,MatDialogRef } from '@angular/material/dialog';
+import { SimpleComponent } from '../../overlays/simple/simple.component';
 
 @Component({
   selector: 'app-asi',
@@ -23,10 +25,12 @@ export class AsiComponent implements OnInit {
   postData: asi;
   errorProcessing: string;
   success = false;
+  simpleDialogRef: MatDialogRef<SimpleComponent>;
 
   constructor(private common: CommonService,
     private process: AsiService,
-    private location: Location) { }
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog) { }
 
   private initForm() {
     this.asiForm = new FormGroup({
@@ -56,6 +60,9 @@ export class AsiComponent implements OnInit {
           this.fetchingCustomerName = false;
           this.errorGetCustomer = error.status;
           console.log(error.error);
+          this._snackBar.open(error.status + " Unable to Fetch Customer", "X", {
+            duration: 3000,panelClass: ['blue-snackbar'],verticalPosition: 'bottom',horizontalPosition: 'end'
+          });
         }
       ); 
   }
@@ -89,7 +96,8 @@ export class AsiComponent implements OnInit {
         }
       }, error => {
         this.isPosting = false;
-        this.errorProcessing = error.status; 
+        this.errorProcessing = error.status;
+        this.simpleDialogRef = this.dialog.open(SimpleComponent);
       })
 
    }
@@ -106,6 +114,9 @@ export class AsiComponent implements OnInit {
           this.fetchingTranName = false;
           this.errorGetCustomer = error.status;
           console.log(error.error);
+          this._snackBar.open(error.status + " Unable to Fetch Transaction Code", "X", {
+            duration: 3000,panelClass: ['blue-snackbar'],verticalPosition: 'bottom',horizontalPosition: 'end'
+          });
         }
       ); 
    }

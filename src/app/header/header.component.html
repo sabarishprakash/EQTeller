@@ -8,9 +8,14 @@
       <ul class="navbar-nav mr-auto">
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <button class="btn btn-outline-success my-2 my-sm-0" style="color: white;border-color: white;" type="button" routerLink="/actions">Home</button>
-        <p style="color: #00338E;">|||</p>
-        <button class="btn btn-outline-success my-2 my-sm-0 mp-sm-2" style="color: white;border-color: white;" type="button">Profile</button>
+        <!-- <button class="btn btn-outline-success my-2 my-sm-0" style="color: white;border-color: white;" type="button" routerLink="/actions">Home</button> -->
+        <button class="mr-2" mat-mini-fab color="warn" aria-label="Example icon button with a home icon">
+          <mat-icon>home</mat-icon>
+        </button>
+        <!-- <button class="btn btn-outline-success my-2 my-sm-0 mp-sm-2" style="color: white;border-color: white;" type="button">Profile</button> -->
+        <button mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+          <mat-icon>account_circle</mat-icon>
+        </button>
       </form>
     </div>
   </nav>

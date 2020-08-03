@@ -1,45 +1,52 @@
 <div class="card-body">
   <div class="container">
-    <form [formGroup]="abForm" (ngSubmit)="getDetails()">
-      <div class="form-row align-items-center mb-4">
-        <div class="col-2">
-          <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">Branch</div>
+    <mat-progress-bar color='warn' mode="indeterminate" *ngIf="isPosting"></mat-progress-bar>
+    <form class="example-form" [formGroup]="abForm" (ngSubmit)="getDetails()">
+      <table class="example-form" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width" style="width:60px !important;">
+              <mat-label>Branch</mat-label>
+              <input matInput type="text" formControlName="branch">
+              <!-- <button mat-button *ngIf="this.abForm.value['branch']" matSuffix mat-icon-button aria-label="Clear" (click)="this.abForm.patchValue({branch: ''})">
+                <mat-icon>close</mat-icon>
+              </button> -->
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-full-width" style="width:80px !important;">
+              <mat-label>Account</mat-label>
+              <input matInput type="text" formControlName="account" (input)="this.abForm.patchValue({account: this.abForm.value['account'].toUpperCase()})">
+              <!-- <button mat-button *ngIf="this.abForm.value['account']" matSuffix mat-icon-button aria-label="Clear" (click)="this.abForm.patchValue({account: ''})">
+                <mat-icon>close</mat-icon>
+              </button> -->
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-full-width" style="width:40px !important;">
+              <mat-label>Suffix</mat-label>
+              <input matInput type="text" formControlName="suffix">
+              <!-- <button mat-button *ngIf="this.abForm.value['suffix']" matSuffix mat-icon-button aria-label="Clear" (click)="this.abForm.patchValue({suffix: ''})">
+                <mat-icon>close</mat-icon>
+              </button> -->
+            </mat-form-field>
+          </td>
+          <td>
+            <!-- <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;" *ngIf="isPosting"></div> -->
+            <div *ngIf="!isPosting">
+              <button mat-raised-button color="primary" [disabled]="!abForm.valid">Get Details</button>
             </div>
-            <input type="text" maxlength="4" class="form-control" id="branch" formControlName="branch"
-              style="border-color: #00338E;">
-          </div>
-        </div>
-        <div class="col-3">
-          <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">Basic</div>
-            </div>
-            <input type="text" class="form-control text-uppercase" id="account" maxlength="6" formControlName="account"
-              style="border-color: #00338E;">
-          </div>
-        </div>
-        <div class="col-2">
-          <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text" style="border-color: #00338E;border-right: transparent;">Suffix</div>
-            </div>
-            <input type="text" class="form-control" id="suffix" maxlength="3" formControlName="suffix"
-              style="border-color: #00338E;">
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;" *ngIf="isPosting"></div>
-          <button type="submit" class="btn btn-outline-success ml-2 mb-2" *ngIf="!isPosting" [disabled]="!abForm.valid"> Get
-            Details</button>
-          <button type="button" class="btn btn-outline-danger ml-2 mb-2" *ngIf="!isPosting" [routerLink]="['/actions']">
-            Exit</button>
-        </div>
-      </div>
+          </td>
+        </tr>
+      </table>          
+          <!-- <button type="submit" class="btn btn-outline-success ml-2 mb-2" [disabled]="!abForm.valid"> Get
+            Details</button> -->
+            
+          <!-- <button type="button" class="btn btn-outline-danger ml-2 mb-2" *ngIf="!isPosting" [routerLink]="['/actions']">
+            Exit</button> -->
+            
+          <!-- <button type="button" class="btn btn-outline-warning ml-2 mb-2" (click)="openDialog()">Open Dialog</button>    -->
+       
     </form>
     <div *ngIf="success">
       <table class="table table-borderless">

@@ -3,7 +3,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { pmc } from '../../Models/pmc.model';
 import { PmcService } from '../../Services/pmc.service';
 import { CommonService } from 'src/app/Services/common.service';
-import { Location } from '@angular/common';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatDialog,MatDialogRef } from '@angular/material/dialog';
+import { SimpleComponent } from '../../overlays/simple/simple.component';
+
 
 @Component({
   selector: 'app-pmc',
@@ -25,10 +28,12 @@ export class PmcComponent implements OnInit {
   customerName: string;
   chargeCodeName: string;
   postData: pmc;
+  simpleDialogRef: MatDialogRef<SimpleComponent>;
 
   constructor(private common: CommonService,
     private process: PmcService,
-    private location: Location) { }
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog) { }
 
 
   private initForm() {
@@ -44,8 +49,8 @@ export class PmcComponent implements OnInit {
     })
   }
 
-  changeSource() {
-    if (this.pmcForm.value['source'] === 'Account') {
+  changeSource( ) {
+   if (this.pmcForm.value['source'] === 'Account') {
       this.fromAccount = true;
       this.fromDeal = false;
       this.pmcForm.get('branch').setValidators([Validators.required]);
@@ -84,7 +89,10 @@ export class PmcComponent implements OnInit {
         this.fetchingChargeCodeName = false;
         this.chargeCodeName = responseData.FULLNAME;
       }, error => {
-        this.errorGetChargeCode = error.status;
+        this.fetchingChargeCodeName = false;
+        this._snackBar.open(error.status + " Unable to Fetch Charge Code", "X", {
+          duration: 3000,panelClass: ['blue-snackbar'],verticalPosition: 'bottom',horizontalPosition: 'end'
+        });
       }
     );
   }
@@ -99,8 +107,10 @@ export class PmcComponent implements OnInit {
           this.fetchingCustomerName = false;
           this.customerName = responseData.FULLNAME;
         }, error => {
-          this.errorGetCustomer = error.status;
-          console.log(error.error);
+          this.fetchingCustomerName = false;
+          this._snackBar.open(error.status + " Unable to Fetch Customer", "X", {
+            duration: 3000,panelClass: ['blue-snackbar'],verticalPosition: 'bottom',horizontalPosition: 'end'
+          });
         }
       ); 
     }
@@ -112,9 +122,10 @@ export class PmcComponent implements OnInit {
           this.fetchingCustomerName = false;
           this.customerName = responseData.FULLNAME;
         }, error => {
-          this.errorGetCustomer = error.status;
-          console.log(error.error);
-          console.log(error);
+          this.fetchingCustomerName = false;
+          this._snackBar.open(error.status + " Unable to Fetch Customer", "X", {
+            duration: 3000,panelClass: ['blue-snackbar'],verticalPosition: 'bottom',horizontalPosition: 'end'
+          });
         }
       );
     }
@@ -143,6 +154,7 @@ export class PmcComponent implements OnInit {
       }, error => {
         this.isPosting = false;
         this.errorProcessing = error.status;
+        this.simpleDialogRef = this.dialog.open(SimpleComponent);
       }
     );
   }
