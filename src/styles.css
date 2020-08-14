@@ -2,6 +2,8 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+@import 'https://fonts.googleapis.com/css2?family=Raleway&display=swap';
+
 
 .footer {
     position: absolute;
@@ -17,8 +19,13 @@
 }
 
 .fullscreen{
-  overflow-y: auto;
-  overflow-x: hidden;
+  /* overflow-y: auto; */
+  /* overflow-x: hidden; */
+  min-height: 100%;
+}
+
+html,body {
+  height: 100%;
 }
 
 .wrapper{ 

@@ -1,6 +1,7 @@
 <div class="card-body">
   <div class="container">
     <mat-progress-bar color='warn' mode="indeterminate" *ngIf="isPosting"></mat-progress-bar>
+    <br *ngIf="isPosting"/>
     <form class="example-form" [formGroup]="abForm" (ngSubmit)="getDetails()">
       <table class="example-form" cellspacing="0">
         <tr>

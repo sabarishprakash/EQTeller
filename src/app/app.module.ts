@@ -63,6 +63,12 @@ import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CustomerComponent } from './actions/home/customer/customer.component';
+import { AccountsComponent } from './actions/home/accounts/accounts.component';
+import { DealsComponent } from './actions/home/deals/deals.component';
+import { CardsComponent } from './actions/home/cards/cards.component';
+import { ForexComponent } from './actions/home/forex/forex.component';
+import { EnquiryComponent } from './actions/home/enquiry/enquiry.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +87,12 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     FooterComponent,
     AbComponent,
     SimpleComponent,
+    CustomerComponent,
+    AccountsComponent,
+    DealsComponent,
+    CardsComponent,
+    ForexComponent,
+    EnquiryComponent,
   ],
   imports: [
     BrowserModule,

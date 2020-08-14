@@ -46,6 +46,7 @@ export class AsiComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    console.log('ASI Loaded!')
   }
 
   getCustName() {

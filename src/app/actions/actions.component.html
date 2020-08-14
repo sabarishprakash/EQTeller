@@ -1,23 +1,44 @@
-<app-header></app-header>
-<div class="row">
-    <div class="col-lg-3 border">
+<mat-sidenav-container style="height: 100%">
+    <mat-sidenav #sidenav (opened)="button_toggle()" (closed)="button_toggle()" mode="side">
         <app-menu></app-menu>
-    </div>
-    <div class="col-lg-9">
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-header></app-header>
+        <mat-toolbar style="justify-content: space-between; background-color: inherit;padding-top: 30px;">
+            <div style="padding: 1rem;">
+                <button mat-fab color="primary" (click)="sidenav.toggle()">
+                    <mat-icon>{{ icon }}</mat-icon>
+                </button>
+            </div>
+            <p *ngIf="inHome()" class="text-center display-3 p-1" style="color: #00338E;font-family: 'Raleway', sans-serif;">Welcome!</p>
+            <div style="padding: 1rem;">
+                <button mat-fab color="primary" [routerLink]="['/actions/home']">
+                    <mat-icon>home</mat-icon>
+                </button>
+            </div>
+        </mat-toolbar>
+        
         <div class="container" *ngIf="!inHome()">
-            <div class="card m-2 borderColour">
-                <div class="card-header borderColour" style="background-color:#00338E;">
-                    <div class="row">
-                        <div class="col-lg-11"><h3 class="text-center" style="color: white;"><i>{{getHeading()}}</i></h3></div>
-                        <div class="col-lg-1"><button mat-mini-fab  color="warn" [routerLink]="['/actions']"><mat-icon>close</mat-icon></button></div>
+            <br />
+            <mat-card style="box-shadow: 0 8px 16px 8px rgba(0,0,0,0.2);">
+                <mat-card-header class="navbar">
+                    <div>
+                        <mat-card-title style="color: #00338E;font-family: 'Raleway', sans-serif;font-size: x-large;">
+                            {{getHeading()}}</mat-card-title>
                     </div>
-                </div>
-                <router-outlet></router-outlet>
-            </div>             
-        </div> 
+                    <div><button mat-mini-fab color="warn" [routerLink]="['/actions/home']">
+                            <mat-icon>close</mat-icon>
+                        </button></div>
+                </mat-card-header>
+                <mat-card-content>
+                    <hr />
+                    <router-outlet></router-outlet>
+                </mat-card-content>
+            </mat-card>
+        </div>
         <div class="container" *ngIf="inHome()">
             <app-home></app-home>
-        </div>  
-    </div>
-</div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
 <!-- <app-footer></app-footer> -->

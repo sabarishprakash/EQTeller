@@ -1,23 +1,16 @@
-<div class="container">
-  <mat-card class="example-card">
-    <!-- <mat-card-header>
-      <mat-card-title> </mat-card-title>
-    </mat-card-header> -->
-    <mat-card-content>
-      <p class="text-center p-2 display-3 animatesuccess" style="font-size: 100px;">Welcome!</p>
-      <p class="text-center p-2" style="font-size: 50px;">Pick an Action on your Left to Start</p>
-    </mat-card-content>
-  </mat-card>
-  
+<div *ngIf=inHome()>
+  <mat-grid-list cols="3" rowHeight="0.75:1">
+    <mat-grid-tile *ngFor="let menu of menus">
+      <a (click)="showCustomer(menu.key)">
+      <mat-card class="example-card">
+        <mat-card-title><p>{{menu.heading}}</p></mat-card-title>
+        <mat-card-content><img mat-card-image src={{menu.icon}}></mat-card-content>
+      </mat-card>
+    </a>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>
 
-<!-- <section class="h-100">
-    <header class="container h-100">
-      <div class="d-flex align-items-center justify-content-center h-100">
-        <div class="d-flex flex-column">
-          <h1 class="text align-self-center p-2 display-3">Welcome!</h1>
-          <h3 class="text align-self-center p-2 text-muted">Pick an Action on your Left to Start</h3>
-        </div>
-      </div>
-    </header>
-  </section> -->
+<div *ngIf=!inHome()>
+  <router-outlet></router-outlet>
+</div>

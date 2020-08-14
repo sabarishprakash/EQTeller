@@ -78,6 +78,7 @@ export class PmcComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    console.log('PMC Loaded!');
   }
 
   getChargeCodeName() {

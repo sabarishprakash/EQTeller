@@ -10,7 +10,7 @@ export class ListItemHighlightDirective implements OnInit {
   ngOnInit() {
     //this.renderer.setStyle(this.eleRef.nativeElement, 'border-color', 'teal');
     this.renderer.addClass(this.eleRef.nativeElement, 'borderColour');
-    this.renderer.setStyle(this.eleRef.nativeElement, 'color', '#00338E');
+    this.renderer.setStyle(this.eleRef.nativeElement, 'color', 'black');
   }
 
   @HostListener('mouseenter') mouseover(evenData: Event) {
@@ -20,6 +20,6 @@ export class ListItemHighlightDirective implements OnInit {
 
   @HostListener('mouseleave') mouseleave(evenData: Event) {
     this.renderer.setStyle(this.eleRef.nativeElement, 'background-color', 'transparent');
-    this.renderer.setStyle(this.eleRef.nativeElement, 'color', '#00338E');
+    this.renderer.setStyle(this.eleRef.nativeElement, 'color', 'black');
   }
 }
