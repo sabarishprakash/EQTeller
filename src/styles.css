@@ -26,11 +26,13 @@
 
 html,body {
   height: 100%;
+  background-color: #00338E;
 }
+
 
 .wrapper{ 
   overflow-y: auto;
-  overflow-x: hidden; 
+  /* overflow-x: hidden;  */
   position:relative;
   min-height: calc(100vh - 185px);
   max-height: calc(100vh - 185px);

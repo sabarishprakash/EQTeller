@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { pmc } from '../../Models/pmc.model';
-import { PmcService } from '../../Services/pmc.service';
+import { pmc } from '../../../Models/pmc.model';
+import { PmcService } from '../../../Services/pmc.service';
 import { CommonService } from 'src/app/Services/common.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { MatDialog,MatDialogRef } from '@angular/material/dialog';
-import { SimpleComponent } from '../../overlays/simple/simple.component';
+import { SimpleComponent } from '../../../overlays/simple/simple.component';
+import { ActivatedRoute } from '@angular/router';
+import { ActionsService } from 'src/app/Services/actions.service';
 
 
 @Component({
@@ -33,7 +35,9 @@ export class PmcComponent implements OnInit {
   constructor(private common: CommonService,
     private process: PmcService,
     private _snackBar: MatSnackBar,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private service: ActionsService) { }
 
 
   private initForm() {
@@ -79,6 +83,10 @@ export class PmcComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     console.log('PMC Loaded!');
+    this.route.data.subscribe(data => {
+      console.log(data);
+      this.service.headingChange(data.heading);
+    });
   }
 
   getChargeCodeName() {

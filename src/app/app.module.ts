@@ -4,19 +4,19 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './actions/menu/menu.component';
-import { PmcComponent } from './actions/pmc/pmc.component';
+import { PmcComponent } from './actions/api/pmc/pmc.component';
 import { ListItemHighlightDirective } from './Directives/list-item-highlight.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { ActionsComponent } from './actions/actions.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './actions/home/home.component';
-import { AsiComponent } from './actions/asi/asi.component';
-import { AncComponent } from './actions/anc/anc.component';
-import { OcaComponent } from './actions/oca/oca.component';
-import { YctComponent } from './actions/yct/yct.component';
+import { AsiComponent } from './actions/api/asi/asi.component';
+import { AncComponent } from './actions/api/anc/anc.component';
+import { OcaComponent } from './actions/api/oca/oca.component';
+import { YctComponent } from './actions/api/yct/yct.component';
 import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './footer/footer.component';
-import { AbComponent } from './actions/ab/ab.component';
+import { AbComponent } from './actions/api/ab/ab.component';
 import { SimpleComponent } from './overlays/simple/simple.component';
 import {A11yModule} from '@angular/cdk/a11y';
 import {ClipboardModule} from '@angular/cdk/clipboard';
@@ -69,6 +69,12 @@ import { DealsComponent } from './actions/home/deals/deals.component';
 import { CardsComponent } from './actions/home/cards/cards.component';
 import { ForexComponent } from './actions/home/forex/forex.component';
 import { EnquiryComponent } from './actions/home/enquiry/enquiry.component';
+import { MainComponent } from './actions/home/main/main.component';
+import { ApiComponent } from './actions/api/api.component';
+import { AeComponent } from './actions/api/ae/ae.component';
+import { AsComponent } from './actions/api/as/as.component';
+import { CaaComponent } from './actions/api/caa/caa.component';
+import { ItaComponent } from './actions/api/ita/ita.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +99,12 @@ import { EnquiryComponent } from './actions/home/enquiry/enquiry.component';
     CardsComponent,
     ForexComponent,
     EnquiryComponent,
+    MainComponent,
+    ApiComponent,
+    AeComponent,
+    AsComponent,
+    CaaComponent,
+    ItaComponent,
   ],
   imports: [
     BrowserModule,

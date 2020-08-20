@@ -1,7 +1,14 @@
 <mat-toolbar color="primary" class="navbar" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
-  <div style="font-family: 'Raleway', sans-serif;font-size: xx-large;"><img src="..\..\assets\BPC_Logo.jpg" width="65"
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>
+    <div style="font-family: 'Raleway', sans-serif;font-size: xx-large;"><img src="..\..\assets\BPC_Logo.jpg" width="65"
       height="50" alt="" style="padding-right: 5px;">Banco de Poupança e Crédito</div>
-  <div>
-     <span style="font-family: 'Raleway', sans-serif;font-size: inherit;padding-right: 10px;">Teller For EQUATION</span>
-  </div>
+  </span>
+  <span style="flex: 1 1 auto;"></span>
+  <span><input placeholder="Search" type="email" class="form-control" id="email" style="color: #00338E;"></span>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>home</mat-icon>
+  </button>
 </mat-toolbar>

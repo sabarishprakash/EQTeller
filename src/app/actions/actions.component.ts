@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActionsService } from '../Services/actions.service';
 import { Router } from '@angular/router';
 
@@ -8,11 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./actions.component.css']
 })
 export class ActionsComponent implements OnInit {
-
+  timedOutCloser;
   actionHeading: string;
   icon = 'chevron_right';
-
-
+ 
   constructor(private actionService: ActionsService,
     private router: Router) { }
 
@@ -22,7 +21,8 @@ export class ActionsComponent implements OnInit {
 
   inHome(): boolean {
     let Result = false;
-    if(this.router.url.substring(0, 13) === '/actions/home') {
+    console.log(this.router.url.substr(9));
+    if(this.router.url.substring(0, 8) === '/actions') {  
       Result = true;
     } else {
       Result = false;
@@ -32,7 +32,6 @@ export class ActionsComponent implements OnInit {
   }
 
   getHeading(): string {
-    let heading: string;
     return this.actionService.getHeading(+(this.router.url.substr(this.router.url.length - 1)));
   }
 

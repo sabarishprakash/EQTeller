@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AbService } from '../../Services/ab.service';
+import { AbService } from '../../../Services/ab.service';
 import { ab } from 'src/app/Models/ab.model';
 import { MatDialog,MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SimpleComponent } from '../../overlays/simple/simple.component';
+import { SimpleComponent } from '../../../overlays/simple/simple.component';
 
 @Component({
   selector: 'app-ab',

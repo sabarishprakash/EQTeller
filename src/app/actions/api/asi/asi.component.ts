@@ -5,7 +5,9 @@ import { AsiService } from 'src/app/Services/asi.service';
 import { asi } from 'src/app/Models/asi.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { MatDialog,MatDialogRef } from '@angular/material/dialog';
-import { SimpleComponent } from '../../overlays/simple/simple.component';
+import { SimpleComponent } from '../../../overlays/simple/simple.component';
+import { ActivatedRoute } from '@angular/router';
+import { ActionsService } from 'src/app/Services/actions.service';
 
 @Component({
   selector: 'app-asi',
@@ -30,7 +32,9 @@ export class AsiComponent implements OnInit {
   constructor(private common: CommonService,
     private process: AsiService,
     private _snackBar: MatSnackBar,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private service: ActionsService) { }
 
   private initForm() {
     this.asiForm = new FormGroup({
@@ -46,7 +50,11 @@ export class AsiComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    console.log('ASI Loaded!')
+    console.log('ASI Loaded!');
+    this.route.data.subscribe(data => {
+      console.log(data);
+      this.service.headingChange(data.heading);
+    });
   }
 
   getCustName() {

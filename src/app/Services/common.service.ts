@@ -12,15 +12,19 @@ export class CommonService {
     private router: Router) { }
 
   menus = [
-  { key:"customer", heading:"Customers", icon:"../../../assets/Customer_icon.png" },
-  { key:"accounts", heading:"Accounts", icon:"../../../assets/Account_icon.png" },
-  { key:"enquiry", heading:"Enquiry", icon:"../../../assets/Enquiry_icon.png" },
-  { key:"deals", heading:"Deals", icon:"../../../assets/Deals_icon.png" },
-  { key:"cards", heading:"Cards", icon:"../../../assets/Cards_icon.png" },
-  { key:"forex", heading:"Forex", icon:"../../../assets/Forex_icon.png" }];
+  { key:"customer", heading:"Customers", icon:"../../../assets/Customer_icon.png", desc:"Manage Customer" },
+  { key:"accounts", heading:"Accounts", icon:"../../../assets/Account_icon.png", desc:"Manage Accounts" },
+  { key:"enquiry", heading:"Enquiry", icon:"../../../assets/Enquiry_icon.png", desc:"Enquiry of Details" },
+  { key:"deals", heading:"Deals", icon:"../../../assets/Deals_icon.png", desc:"Deals Management" },
+  { key:"cards", heading:"Cards", icon:"../../../assets/Cards_icon.png", desc:"Cards Management" },
+  { key:"forex", heading:"Forex", icon:"../../../assets/Forex_icon.png", desc:"Forex Management" }];
 
   inHome() {
     return this.router.url.substring(13) ? false : true;
+  }
+
+  getMenuHeading() {
+    return (this.router.url.length > 8) ? this.menus.find(e => e.key === this.router.url.substr(9)).heading : "Welcome!";
   }
 
   getCustomerName(BASICNO: string) {

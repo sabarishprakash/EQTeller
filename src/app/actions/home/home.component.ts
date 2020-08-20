@@ -9,21 +9,10 @@ import { CommonService } from 'src/app/Services/common.service';
 })
 
 export class HomeComponent implements OnInit {
-
-  menus = this.common.menus;
-
-  constructor(private router: Router,
-    private common: CommonService) { }
+  
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  inHome() {
-    return this.common.inHome();
-  }
-
-  showCustomer(menuName: string) {
-    this.router.navigate(['/actions/home/' + menuName]);
   }
 
 }

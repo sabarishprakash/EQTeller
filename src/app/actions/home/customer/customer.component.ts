@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonService } from 'src/app/Services/common.service';
 
 @Component({
   selector: 'app-customer',
@@ -7,13 +8,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./customer.component.css']
 })
 export class CustomerComponent implements OnInit {
+ 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private common: CommonService) { }
+
+    heading = this.common.getMenuHeading();
+    // heading = "Customer";
 
   ngOnInit(): void {
   }
 
   goBack() {
-    this.router.navigate(['/actions/home']);
+    this.router.navigate(['/actions']);
   }
 }

@@ -1,44 +1,66 @@
 <mat-sidenav-container style="height: 100%">
-    <mat-sidenav #sidenav (opened)="button_toggle()" (closed)="button_toggle()" mode="side">
+    <mat-sidenav #sidenav  (opened)="button_toggle()" (closed)="button_toggle()" mode="side">
         <app-menu></app-menu>
     </mat-sidenav>
     <mat-sidenav-content>
-        <app-header></app-header>
-        <mat-toolbar style="justify-content: space-between; background-color: inherit;padding-top: 30px;">
-            <div style="padding: 1rem;">
-                <button mat-fab color="primary" (click)="sidenav.toggle()">
-                    <mat-icon>{{ icon }}</mat-icon>
+        <mat-toolbar color="primary" class="bar">
+            <button class="sidenavbutton" mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>{{ icon }}</mat-icon>
+            </button>
+            <img class="logo" src="..\..\assets\Small.jpg" width="200" height="50">
+            <div class="search">
+                <input class="textbox" placeholder="Search" type="text" id="email" style="color: #00338E;">
+                <button class="searchbutton" type="submit">
+                    <mat-icon>search</mat-icon>
                 </button>
             </div>
-            <p *ngIf="inHome()" class="text-center display-3 p-1" style="color: #00338E;font-family: 'Raleway', sans-serif;">Welcome!</p>
-            <div style="padding: 1rem;">
-                <button mat-fab color="primary" [routerLink]="['/actions/home']">
-                    <mat-icon>home</mat-icon>
-                </button>
-            </div>
+            <button class="sidenavbutton" mat-icon-button>
+                <mat-icon>home</mat-icon>
+            </button>
+            <div class="spacing"></div>
         </mat-toolbar>
+        <div class="minbar">
+            <div style="margin-left: 70px;">
+                <a mat-flat-button [matMenuTriggerFor]="Customer">Customer<mat-icon>keyboard_arrow_down</mat-icon></a>
+            <mat-menu #Customer="matMenu">
+                <a mat-menu-item>Add New Customer</a>
+                <a mat-menu-item>Add Customer Details</a>
+                <a mat-menu-item>Update Customer Details</a>
+            </mat-menu>
+            <a mat-flat-button [matMenuTriggerFor]="Account">Accounts<mat-icon>keyboard_arrow_down</mat-icon></a>
+            <mat-menu #Account="matMenu">
+                <a mat-menu-item>Open Customer Account</a>
+                <a mat-menu-item>View Account Details</a>
+            </mat-menu>
+            <a mat-flat-button [matMenuTriggerFor]="Deals">Deals<mat-icon>keyboard_arrow_down</mat-icon></a>
+            <mat-menu #Deals="matMenu">
+                <a mat-menu-item>Open a Deal</a>
+                <a mat-menu-item>View Deal Details</a>
+                <a mat-menu-item>Add Principal Increase</a>
+            </mat-menu>
+            <a mat-flat-button [matMenuTriggerFor]="Enquiry">Enquiry<mat-icon>keyboard_arrow_down</mat-icon></a>
+            <mat-menu #Enquiry="matMenu">
+                <a mat-menu-item>View Account Balance</a>
+                <a mat-menu-item>View Account Details</a>
+            </mat-menu>
+            <a mat-flat-button [matMenuTriggerFor]="Cards">Cards<mat-icon>keyboard_arrow_down</mat-icon></a>
+            <mat-menu #Cards="matMenu">
+                <a mat-menu-item>Issue a Card to Customer</a>
+                <a mat-menu-item>Issue PIN Details to Customer</a>
+                <a mat-menu-item>Receive Cards to Branch</a>
+                <a mat-menu-item>Receive PIN Details to Branch</a>
+            </mat-menu>
+            <a mat-flat-button [matMenuTriggerFor]="Forex">Forex<mat-icon>keyboard_arrow_down</mat-icon></a>
+            <mat-menu #Forex="matMenu">
+                <a mat-menu-item>IBAN Details Enquiry</a>
+                <a mat-menu-item>Make a Transaction</a>
+            </mat-menu>
+            </div>
+        </div>
+        <div class="maincontent">
+            <router-outlet></router-outlet>
+        </div>
         
-        <div class="container" *ngIf="!inHome()">
-            <br />
-            <mat-card style="box-shadow: 0 8px 16px 8px rgba(0,0,0,0.2);">
-                <mat-card-header class="navbar">
-                    <div>
-                        <mat-card-title style="color: #00338E;font-family: 'Raleway', sans-serif;font-size: x-large;">
-                            {{getHeading()}}</mat-card-title>
-                    </div>
-                    <div><button mat-mini-fab color="warn" [routerLink]="['/actions/home']">
-                            <mat-icon>close</mat-icon>
-                        </button></div>
-                </mat-card-header>
-                <mat-card-content>
-                    <hr />
-                    <router-outlet></router-outlet>
-                </mat-card-content>
-            </mat-card>
-        </div>
-        <div class="container" *ngIf="inHome()">
-            <app-home></app-home>
-        </div>
     </mat-sidenav-content>
 </mat-sidenav-container>
 <!-- <app-footer></app-footer> -->

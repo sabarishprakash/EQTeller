@@ -8,7 +8,7 @@
 </div>
 
 <mat-list>
-  <a mat-list-item *ngFor="let Action of actionList" (click)="navigate(Action.key)" appListItemHighlight style="text-decoration: none;">
+  <a mat-list-item *ngFor="let Action of actionList" (click)="navigate(Action.link)" appListItemHighlight style="text-decoration: none;">
     <mat-icon matListIcon>send</mat-icon>
     <h3 matLine style="font-family: 'Raleway', sans-serif;">{{ Action.mnemonic }}</h3>
     <p matLine style="font-family: 'Raleway', sans-serif;">{{ Action.description }}</p>

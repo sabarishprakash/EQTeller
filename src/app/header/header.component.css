@@ -1,8 +1,10 @@
 .navbar {
-    justify-content: space-between;
     background-color: #00338E;
 }
 
+.example-spacer {
+    flex: 1 1 auto;
+  }
 /* button {
     padding-right: 1rem;
 } */

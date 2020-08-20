@@ -26,7 +26,7 @@ export class MenuComponent implements OnInit {
     this.actionService.performSearch((<HTMLInputElement>event.target).value);
   }
 
-  navigate(menu: string) {
-    this.router.navigate(['/actions/' + menu]);
+  navigate(menu: String) {
+    this.router.navigate(['/actions/api/' + menu]);
   }
 }
