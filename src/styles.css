@@ -26,7 +26,8 @@
 
 html,body {
   height: 100%;
-  background-color: #00338E;
+  font-family: 'Raleway', sans-serif;
+  /* background-color: #00338E; */
 }
 
 

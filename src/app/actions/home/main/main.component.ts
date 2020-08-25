@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
+  todayDate : Date = new Date();
 
   constructor(private common: CommonService,
     private router: Router) { }

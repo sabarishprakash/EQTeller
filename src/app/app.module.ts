@@ -75,6 +75,8 @@ import { AeComponent } from './actions/api/ae/ae.component';
 import { AsComponent } from './actions/api/as/as.component';
 import { CaaComponent } from './actions/api/caa/caa.component';
 import { ItaComponent } from './actions/api/ita/ita.component';
+import { GenericComponent } from './actions/api/generic/generic.component';
+import { DynamicFormComponent } from './actions/api/generic/dynamic-form/dynamic-form.component';
 
 @NgModule({
   declarations: [
@@ -105,6 +107,8 @@ import { ItaComponent } from './actions/api/ita/ita.component';
     AsComponent,
     CaaComponent,
     ItaComponent,
+    GenericComponent,
+    DynamicFormComponent,
   ],
   imports: [
     BrowserModule,

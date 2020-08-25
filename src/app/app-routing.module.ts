@@ -22,6 +22,7 @@ import { AeComponent } from './actions/api/ae/ae.component';
 import { AsComponent } from './actions/api/as/as.component';
 import { CaaComponent } from './actions/api/caa/caa.component';
 import { ItaComponent } from './actions/api/ita/ita.component';
+import { GenericComponent } from './actions/api/generic/generic.component';
 
 const actions = new ActionsService();
 const appRoutes: Routes = [
@@ -47,6 +48,7 @@ const appRoutes: Routes = [
             {path: actions.getLink(7), component: AsComponent, data: {heading: actions.getHeading(7)}},
             {path: actions.getLink(8), component: CaaComponent, data: {heading: actions.getHeading(8)}},
             {path: actions.getLink(9), component: ItaComponent, data: {heading: actions.getHeading(9)}},
+            {path: 'generic', component: GenericComponent}
         ]},
     ]},
     {path: 'login', component: LoginComponent}
