@@ -1,0 +1,106 @@
+<div class="card-body">
+  <div class="container">
+    <mat-progress-bar color='warn' mode="indeterminate" *ngIf="isPosting"></mat-progress-bar>
+    <br *ngIf="isPosting"/>
+    <form class="example-form" [formGroup]="abForm" (ngSubmit)="getDetails()">
+      <table class="example-form" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width" style="width:60px !important;">
+              <mat-label>Branch</mat-label>
+              <input matInput type="text" formControlName="branch">
+              <!-- <button mat-button *ngIf="this.abForm.value['branch']" matSuffix mat-icon-button aria-label="Clear" (click)="this.abForm.patchValue({branch: ''})">
+                <mat-icon>close</mat-icon>
+              </button> -->
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-full-width" style="width:80px !important;">
+              <mat-label>Account</mat-label>
+              <input matInput type="text" formControlName="account" (input)="this.abForm.patchValue({account: this.abForm.value['account'].toUpperCase()})">
+              <!-- <button mat-button *ngIf="this.abForm.value['account']" matSuffix mat-icon-button aria-label="Clear" (click)="this.abForm.patchValue({account: ''})">
+                <mat-icon>close</mat-icon>
+              </button> -->
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-full-width" style="width:40px !important;">
+              <mat-label>Suffix</mat-label>
+              <input matInput type="text" formControlName="suffix">
+              <!-- <button mat-button *ngIf="this.abForm.value['suffix']" matSuffix mat-icon-button aria-label="Clear" (click)="this.abForm.patchValue({suffix: ''})">
+                <mat-icon>close</mat-icon>
+              </button> -->
+            </mat-form-field>
+          </td>
+          <td>
+            <!-- <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;" *ngIf="isPosting"></div> -->
+            <div *ngIf="!isPosting">
+              <button mat-raised-button color="primary" [disabled]="!abForm.valid">Get Details</button>
+            </div>
+          </td>
+        </tr>
+      </table>          
+          <!-- <button type="submit" class="btn btn-outline-success ml-2 mb-2" [disabled]="!abForm.valid"> Get
+            Details</button> -->
+            
+          <!-- <button type="button" class="btn btn-outline-danger ml-2 mb-2" *ngIf="!isPosting" [routerLink]="['/actions']">
+            Exit</button> -->
+            
+          <!-- <button type="button" class="btn btn-outline-warning ml-2 mb-2" (click)="openDialog()">Open Dialog</button>    -->
+       
+    </form>
+    <div *ngIf="success">
+      <table class="table table-borderless">
+        <tr>
+          <td colspan="1" class="lead text-secondary font-italic">Customer</td>
+          <td colspan="4" class="lead text-left" style="color: #00338E;"><b><i>{{abData.customerFullName}}</i></b></td>
+          <td class="lead text-secondary" style="color: #00338E;"><i>Mnemonic</i></td>
+          <td colspan="2" class="lead" style="color: #00338E;"><b><i>{{abData.customerMnemonic + ' ' + abData.customerLocation}}</i></b></td>
+        </tr>
+        <tr>
+          <td class="lead text-secondary"><i>A/C Type</i></td>
+          <td class="lead" style="color: #00338E;"><b><i>{{abData.accountType}}</i></b></td>
+          <td colspan="2" class="lead text-secondary"><i>Internal Account?</i></td>
+          <td class="lead" style="color: #00338E;"><b><i>{{ abData.is_internal_Or_Noncustomer_Account }}</i></b></td>
+          <td class="lead text-secondary"><i>Currency</i></td>
+          <td class="lead" style="color: #00338E;"><b><i>{{abData.currencyMnemonic}}</i></b></td>
+          <td class="lead text-secondary"><i>Blocked?</i></td>
+          <td class="lead" style="color: #00338E;"><b><i>{{ abData.is_Blocked }}</i></b></td>
+        </tr>
+        <tr>
+          <td class="lead text-secondary"><i>IBAN</i></td>
+          <td colspan="4" class="lead" style="color: #00338E;"><b><i>{{abData.editedIBAN}}</i></b></td>
+          <td colspan="1" class="lead text-secondary"><i>Opened On</i></td>
+          <td colspan="2"  class="lead" style="color: #00338E;"><b><i>{{ abData.dateOpened | date }}</i></b></td>
+        </tr>
+        <tr>
+          <td class="lead text-secondary"><i>Liquidated?</i></td>
+          <td class="lead" style="color: #00338E;"><b><i>{{ abData.is_Deceased_Or_Liquidated }}</i></b></td>
+          <td class="lead text-secondary"><i>Inactive?</i></td>
+          <td class="lead" style="color: #00338E;"><b><i>{{ abData.is_Inactive }}</i></b></td>
+          <td class="lead text-secondary"><i>Closing?</i></td>
+          <td class="lead" style="color: #00338E;"><b><i>{{ abData.is_Closing }}</i></b></td>
+          <td class=" lead text-secondary"><i>Cust Type</i></td>
+          <td class="lead" style="color: #00338E;"><b><i>{{abData.customerType}}</i></b></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="lead text-secondary"><i>Ext Account No</i></td>
+          <td colspan="2" class="lead" style="color: #00338E;"><b><i>{{ abData.extAccountNo }}</i></b></td>
+          <td colspan="2" class="lead text-secondary"><i>Ledger Balance</i></td>
+          <td colspan="2" class="lead" style="color: #00338E;"><b><i>{{abData.ledgerBalance | currency:'AOA':'AOA '}}</i></b></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="lead text-secondary"><i>Shadow CR</i></td>
+          <td colspan="2" class="lead" style="color: #00338E;"><b><i>{{abData.shadowCredits | currency:'AOA':'AOA '}}</i></b></td>
+          <td colspan="2" class="lead text-secondary"><i>Shadow DR</i></td>
+          <td colspan="2" class="lead" style="color: #00338E;"><b><i>{{abData.shadowDebits | currency:'AOA':'AOA '}}</i></b></td>
+        </tr>
+      </table>
+      <hr />
+      <div class="text-center">
+        <h3 class="text-success"><i>Current Available Balance: {{abData.currentAvailableBalance | currency:'AOA':'AOA '}}</i></h3>
+      </div>
+    </div>
+
+  </div>
+</div>

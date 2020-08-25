@@ -1,0 +1,17 @@
+<div class="container">
+    <br />
+    <mat-card style="box-shadow: 0 8px 16px 8px rgba(0,0,0,0.2);">
+        <mat-card-header class="navbar">
+            <div>
+                <mat-card-title style="color: #00338E;font-family: 'Raleway', sans-serif;font-size: x-large;">{{heading}}</mat-card-title>
+            </div>
+            <div><button mat-mini-fab color="warn" [routerLink]="['/actions']">
+                    <mat-icon>close</mat-icon>
+                </button></div>
+        </mat-card-header>
+        <mat-card-content>
+            <hr />
+            <router-outlet></router-outlet>
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -1,13 +1,66 @@
-<app-header></app-header>
-<div class="row">
-    <div class="col-lg-3">
+<mat-sidenav-container style="height: 100%">
+    <mat-sidenav #sidenav  (opened)="button_toggle()" (closed)="button_toggle()" mode="side">
         <app-menu></app-menu>
-    </div>
-    <div class="col-lg-9">
-        <div class="wrapper">
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary" class="bar">
+            <button class="sidenavbutton" mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>{{ icon }}</mat-icon>
+            </button>
+            <img class="logo" src="..\..\assets\Small.jpg" width="200" height="50">
+            <div class="search">
+                <input class="textbox" placeholder="Search" type="text" id="email" style="color: #00338E;">
+                <button class="searchbutton" type="submit">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div>
+            <button class="sidenavbutton" mat-icon-button>
+                <mat-icon>home</mat-icon>
+            </button>
+            <div class="spacing"></div>
+        </mat-toolbar>
+        <div class="minbar">
+            <div style="margin-left: 70px;">
+                <a mat-flat-button [matMenuTriggerFor]="Customer">Customer<mat-icon>keyboard_arrow_down</mat-icon></a>
+            <mat-menu #Customer="matMenu">
+                <a mat-menu-item>Add New Customer</a>
+                <a mat-menu-item>Add Customer Details</a>
+                <a mat-menu-item>Update Customer Details</a>
+            </mat-menu>
+            <a mat-flat-button [matMenuTriggerFor]="Account">Accounts<mat-icon>keyboard_arrow_down</mat-icon></a>
+            <mat-menu #Account="matMenu">
+                <a mat-menu-item>Open Customer Account</a>
+                <a mat-menu-item>View Account Details</a>
+            </mat-menu>
+            <a mat-flat-button [matMenuTriggerFor]="Deals">Deals<mat-icon>keyboard_arrow_down</mat-icon></a>
+            <mat-menu #Deals="matMenu">
+                <a mat-menu-item>Open a Deal</a>
+                <a mat-menu-item>View Deal Details</a>
+                <a mat-menu-item>Add Principal Increase</a>
+            </mat-menu>
+            <a mat-flat-button [matMenuTriggerFor]="Enquiry">Enquiry<mat-icon>keyboard_arrow_down</mat-icon></a>
+            <mat-menu #Enquiry="matMenu">
+                <a mat-menu-item>View Account Balance</a>
+                <a mat-menu-item>View Account Details</a>
+            </mat-menu>
+            <a mat-flat-button [matMenuTriggerFor]="Cards">Cards<mat-icon>keyboard_arrow_down</mat-icon></a>
+            <mat-menu #Cards="matMenu">
+                <a mat-menu-item>Issue a Card to Customer</a>
+                <a mat-menu-item>Issue PIN Details to Customer</a>
+                <a mat-menu-item>Receive Cards to Branch</a>
+                <a mat-menu-item>Receive PIN Details to Branch</a>
+            </mat-menu>
+            <a mat-flat-button [matMenuTriggerFor]="Forex">Forex<mat-icon>keyboard_arrow_down</mat-icon></a>
+            <mat-menu #Forex="matMenu">
+                <a mat-menu-item>IBAN Details Enquiry</a>
+                <a mat-menu-item>Make a Transaction</a>
+            </mat-menu>
+            </div>
+        </div>
+        <div class="maincontent">
             <router-outlet></router-outlet>
         </div>
         
-    </div>
-</div>
-<app-footer></app-footer>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+<!-- <app-footer></app-footer> -->

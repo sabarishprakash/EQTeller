@@ -1,0 +1,134 @@
+<div class="card-body" *ngIf="!success">
+    <div class="container">
+        <div *ngIf="isPosting">
+            <mat-progress-bar color='warn' mode="indeterminate"></mat-progress-bar>
+            <br/>
+        </div>
+        <form [formGroup]="pmcForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+                <mat-label>Choose Source</mat-label>
+                <mat-select formControlName="source" (selectionChange)="changeSource()">
+                    <mat-option *ngFor="let s of source" [value]="s">{{s}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+          <table>
+            <tr *ngIf="fromAccount">
+                <td>
+                    <mat-form-field style="width:60px !important;">
+                        <mat-label>Branch</mat-label>
+                        <input matInput type="text" formControlName="branch">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field style="width:80px !important;">
+                        <mat-label>Account</mat-label>
+                        <input matInput type="text" formControlName="account" (blur)="getCustName()"
+                            (input)="this.pmcForm.patchValue({account: this.pmcForm.value['account'].toUpperCase()})">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field style="width:40px !important;">
+                        <mat-label>Suffix</mat-label>
+                        <input matInput type="text" formControlName="suffix">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;" *ngIf="fetchingCustomerName"></div>
+                    <h5><output class="ml-2" id="customerName" *ngIf="customerName">{{ customerName }}</output></h5>
+                </td>
+            </tr>
+            <tr *ngIf="fromDeal">
+                <td>
+                    <mat-form-field style="width:60px !important;">
+                        <mat-label>Branch</mat-label>
+                        <input matInput type="text" formControlName="branch">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field style="width:90px !important;">
+                        <mat-label>Reference</mat-label>
+                        <input matInput type="text" (blur)="getCustName()" formControlName="dealRef">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;" *ngIf="fetchingCustomerName"></div>
+                    <h5><output class="ml-2" id="customerName" *ngIf="customerName">{{ customerName }}</output></h5>
+                </td>               
+            </tr>
+        </table>    
+
+        <table>
+            <tr *ngIf="fromAccount || fromDeal">
+                <td>
+                    <mat-form-field style="width:60px !important;">
+                        <mat-label>Charge Code</mat-label>
+                        <input matInput type="text" (blur)="getChargeCodeName()" formControlName="chargeCode">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <div class="spinner-border text-primary mr-2" style="border-spacing: 2px;" *ngIf="fetchingChargeCodeName"></div>
+                    <h5><output class="ml-2" id="customerName" *ngIf="chargeCodeName">{{ chargeCodeName }}</output></h5>  
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <tr *ngIf="fromAccount || fromDeal">
+                <td>
+                    <mat-form-field style="width:60px !important;">
+                        <mat-label>Currency</mat-label>
+                        <input matInput type="text" (blur)="getChargeCodeName()" formControlName="currency">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field style="width:80px !important;">
+                        <mat-label>Amount</mat-label>
+                        <input matInput type="text" (blur)="getChargeCodeName()" formControlName="chargeAmount">
+                    </mat-form-field> 
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <button *ngIf="fromAccount || fromDeal" class="mr-2" type="submit" mat-raised-button color="primary" [disabled]="!pmcForm.valid">Process</button>
+        <button *ngIf="fromAccount || fromDeal" type="button" mat-raised-button color="warn" (click)="onCancel()">Clear</button>           
+                  
+        </form>
+
+    </div>
+</div>
+
+<div class="card-body" *ngIf="success">
+    <h2 class="text-center animatesuccess display-4">Success!</h2>
+    <table class="table">
+        <tbody>
+            <tr *ngIf="fromAccount">
+                <td class="lead text-secondary font-italic">Customer</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{customerName}}</i></b></td>
+                <td class="lead text-secondary font-italic">Account</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{pmcForm.value['branch']}}-{{pmcForm.value['account'].toUpperCase()}}-{{pmcForm.value['suffix']}}</i></b></td>               
+            </tr>
+            <tr *ngIf="fromDeal">
+                <td class="lead text-secondary font-italic">Customer</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{customerName}}</i></b></td>
+                <td class="lead text-secondary font-italic">Deal Reference</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{pmcForm.value['branch']}}-{{pmcForm.value['dealRef'].toUpperCase()}}</i></b></td>               
+            </tr>  
+            <tr>
+                <td class="lead text-secondary font-italic">Charge Code</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{pmcForm.value['chargeCode'].toString()}}</i></b></td>
+                <td class="lead text-secondary font-italic">Charge Code Name</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{chargeCodeName}}</i></b></td>
+            </tr>
+            <tr>
+                <td class="lead text-secondary font-italic">Currency</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{pmcForm.value['currency']}}</i></b></td>
+                <td class="lead text-secondary font-italic">Amount</td>
+                <td class="lead text-left" style="color: #00338E;"><b><i>{{pmcForm.value['chargeAmount'].toString()}}</i></b></td>
+            </tr>                    
+        </tbody>
+    </table>
+    <div class="text-center">
+        <div class="btn btn-success" [routerLink]="['/actions']">OK</div>
+    </div>
+</div>

@@ -1,14 +1,16 @@
-<div class="border">
 <div class="container">
-<h2 style="color: #00338E;"><i>Actions</i></h2>
-<input type="email" class="form-control" id="searchAction" aria-describedby="emailHelp" placeholder="Search" style="border-color: #00338E;" (input)="onSearch($event)">
+<h2 style="color: #00338E;font-family: 'Raleway', sans-serif;">Actions</h2>
+<!-- <input type="text" style="font-family: 'Raleway', sans-serif;" class="form-control borderColour" id="searchAction" aria-describedby="emailHelp" placeholder="Search"  (input)="onSearch($event)"> -->
+<mat-form-field class="example-form-field">
+  <mat-label style="font-family: 'Raleway', sans-serif;">Search</mat-label>
+  <input matInput type="text" (input)="onSearch($event)" style="font-family: 'Raleway', sans-serif;">
+</mat-form-field>
 </div>
-<hr/>
-<div class="wrapper" style="display:grid">
-<div class="container">
-  <div class="list-group">
-    <a href="#" *ngFor="let Action of actionList" class="list-group-item list-group-item-action" [routerLink]="[Action.key]" appListItemHighlight><b class="text-left">{{ Action.mnemonic }}</b> &#x23E9; <i class="text-right">{{ Action.description }}</i> </a>
-  </div>
-</div>
-</div>
-</div>
+
+<mat-list>
+  <a mat-list-item *ngFor="let Action of actionList" (click)="navigate(Action.link)" appListItemHighlight style="text-decoration: none;">
+    <mat-icon matListIcon>send</mat-icon>
+    <h3 matLine style="font-family: 'Raleway', sans-serif;">{{ Action.mnemonic }}</h3>
+    <p matLine style="font-family: 'Raleway', sans-serif;">{{ Action.description }}</p>
+  </a>
+</mat-list>

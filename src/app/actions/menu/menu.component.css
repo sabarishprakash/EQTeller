@@ -1,5 +1,5 @@
 .wrapper{ 
-    overflow-y:scroll; 
+    overflow-y:auto; 
     position:relative;
-    height: 475px;
+    height: 100%;
 }

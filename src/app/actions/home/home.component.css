@@ -1,0 +1,11 @@
+.example-card {
+  max-width: 300px;
+  max-height: 400px;
+  text-align: center;
+  color: #00338E;
+  border: 1px solid #00338E; 
+  font-family: 'Raleway', sans-serif;
+  font-size: 50px;
+  font-weight: bold;
+  box-shadow: 0 8px 16px 8px rgba(0,0,0,0.2); 
+}

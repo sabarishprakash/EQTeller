@@ -1,15 +1,17 @@
-export class pmc {
-    public BRANCH: string;
-    public ACCOUNT: string;
-    public SUFFIX: string;
-    public CHARGE_CODE: string;
-    public CHARGE_AMOUNT: string;
+import { input } from './io.model';
 
-    constructor(BRANCH: string, ACCOUNT: string,SUFFIX: string,CHARGE_CODE: string,CHARGE_AMOUNT: string) {
-        this.BRANCH = BRANCH;
-        this.ACCOUNT =  ACCOUNT;
-        this.SUFFIX = SUFFIX;
-        this.CHARGE_CODE = CHARGE_CODE;
-        this.CHARGE_AMOUNT = CHARGE_AMOUNT;        
+export class pmc {
+    public INPUTS: input[];
+    public LENGTH: number;
+
+    constructor(branch: string, account: string,suffix: string,charge_code: string,charge_amount: string) {
+        this.INPUTS = [
+            new input("BRANCH", branch),
+            new input("ACCOUNT", account),
+            new input("SUFFIX", suffix),
+            new input("CHARGE_CODE", charge_code),
+            new input("CHARGE_AMOUNT", charge_amount)
+        ]
+        this.LENGTH = this.INPUTS.length;      
     }
 }
