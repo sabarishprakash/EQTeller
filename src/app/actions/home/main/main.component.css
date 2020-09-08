@@ -23,7 +23,7 @@
 }
 
 p {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 .mat-card-title {
@@ -32,7 +32,7 @@ p {
 }
 
 .mat-card-subtitle {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 .row {
@@ -48,7 +48,7 @@ p {
 }
 
 .mainCard {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Noto Sans', sans-serif;
   margin: 25px;
   height: 225px;
   width: 650px;

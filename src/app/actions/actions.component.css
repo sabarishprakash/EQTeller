@@ -39,6 +39,7 @@ mat-sidenav {
 }
 
 .bar {
+	font-family: 'Noto Sans', sans-serif;
 	position: fixed;
 	display: flex;
 	-webkit-flex: auto;
