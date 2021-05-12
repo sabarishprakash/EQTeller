@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewChecked, AfterContentChecked } from '@angular/core';
 import { ActionsService } from 'src/app/Services/actions.service';
-import {ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-api',
