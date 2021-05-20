@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ActionsService } from 'src/app/Services/actions.service';
 
 @Component({
   selector: 'app-yct',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class YctComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute,
+    private service: ActionsService) { }
 
   ngOnInit(): void {
+    console.log('YCT Loaded!');
+    this.route.data.subscribe(data => {
+      console.log(data);
+      this.service.headingChange(data.heading);
+    });
   }
 
 }

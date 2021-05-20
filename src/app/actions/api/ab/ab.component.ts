@@ -5,6 +5,8 @@ import { ab } from 'src/app/Models/ab.model';
 import { MatDialog,MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SimpleComponent } from '../../../overlays/simple/simple.component';
+import { ActivatedRoute } from '@angular/router';
+import { ActionsService } from 'src/app/Services/actions.service';
 
 @Component({
   selector: 'app-ab',
@@ -22,12 +24,20 @@ export class AbComponent implements OnInit {
   simpleDialogRef: MatDialogRef<SimpleComponent>;
   name: string;
 
+
   constructor(private process: AbService,
     private dialog: MatDialog,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private route: ActivatedRoute,
+    private service: ActionsService) { }
 
   ngOnInit(): void {
     this.initForm();
+    console.log('AB Loaded!');
+    this.route.data.subscribe(data => {
+      console.log(data);
+      this.service.headingChange(data.heading);
+    });
   }
 
   private initForm() {

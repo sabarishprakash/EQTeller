@@ -21,7 +21,7 @@ export class ActionsService {
     new actions(6,'AE ','View Account Details','view_account_details'),
     new actions(7,'AS ','View Account Summary','view_account_summary'),
     new actions(8,'CAA','Add Customer Address','add_customer_address'),
-    new actions(9,'ITA','View Account Details','inter_account_transfer')
+    new actions(9,'ITA','Internal Account Transfer','inter_account_transfer')
   ];
 
   getActions() {
