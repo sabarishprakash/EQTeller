@@ -53,3 +53,11 @@ p {
   height: 225px;
   width: 650px;
 }
+
+.name {
+  color: grey;
+}
+
+.detail {
+  color: #00338E;
+}

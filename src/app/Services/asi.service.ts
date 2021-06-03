@@ -11,6 +11,8 @@ export class AsiService {
   constructor(private http: HttpClient) { }
 
   processASI(postData: asi) {
-    return this.http.post<APIoutput>('asi', postData);
+    //return this.http.post<APIoutput>('asi', postData);
+    //return this.http.post<APIoutput>('http://localhost:8000/asi/transaction', postData);
+    return this.http.post<APIoutput>('https://eqtellerbackend.herokuapp.com/asi/transaction', postData);
   }
 }

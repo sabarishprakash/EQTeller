@@ -29,7 +29,8 @@ export class CommonService {
 
   getCustomerName(BASICNO: string) {
     const postData = new NAMEinput(new input('BASIC',BASICNO));
-    return this.http.post<NAMEoutput>('getname', postData);
+    //return this.http.post<NAMEoutput>('getname', postData);
+    return this.http.post<NAMEoutput>('https://eqtellerbackend.herokuapp.com/customer/name/', postData);
   }
 
   getCustomerNameFromDeal(BRANCH: string,REF: string) {
@@ -44,6 +45,8 @@ export class CommonService {
 
   getTransactionCodeName(TRANSACTION_CODE: string) {
     const postData = new NAMEinput(new input('TRANSACTION_CODE', TRANSACTION_CODE));
-    return this.http.post<NAMEoutput>('getname', postData);
+    //return this.http.post<NAMEoutput>('getname', postData);
+    //return this.http.post<NAMEoutput>('http://localhost:8000/transaction/name/', postData);
+    return this.http.post<NAMEoutput>('https://eqtellerbackend.herokuapp.com/transaction/name/', postData);
   }
 }

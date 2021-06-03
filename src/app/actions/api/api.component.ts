@@ -7,7 +7,7 @@ import { ChangeDetectorRef } from '@angular/core';
   templateUrl: './api.component.html',
   styleUrls: ['./api.component.css']
 })
-export class ApiComponent implements AfterContentChecked {
+export class ApiComponent implements AfterContentChecked  {
   heading: any;
 
   constructor(private service: ActionsService,private cdref: ChangeDetectorRef) {  }

@@ -83,8 +83,8 @@ export class AsiComponent implements OnInit {
   }
 
    onSubmit() {
-     this.isPosting = true;
-     this.postData = new asi(
+      this.isPosting = true;
+      this.postData = new asi(
       this.asiForm.value['branch'],
       this.asiForm.value['account'].toUpperCase(),
       this.asiForm.value['suffix'],

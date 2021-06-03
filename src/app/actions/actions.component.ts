@@ -31,9 +31,9 @@ export class ActionsComponent implements OnInit {
     return Result;
   }
 
-  getHeading(): string {
-    return this.actionService.getHeading(+(this.router.url.substr(this.router.url.length - 1)));
-  }
+  // getHeading(): string {
+  //   return this.actionService.getHeading(+(this.router.url.substr(this.router.url.length - 1)));
+  // }
 
   button_toggle() {
     this.icon = this.icon === 'chevron_right' ? 'chevron_left' : 'chevron_right';
